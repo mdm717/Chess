@@ -1,1 +1,14 @@
-Test
+King:
+	check for correctness
+		attention to castling
+Queen:
+	needs to add all moves
+Bishop:
+	needs to add all moves
+Knight:
+	needs to add all moves
+Rook:
+	needs to add all moves
+Pawn:
+	check for correctness
+		attention to en passant
