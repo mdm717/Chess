@@ -2,13 +2,13 @@ King:
 	check for correctness
 		attention to castling
 Queen:
-	needs to add all moves
+	check for correctness
 Bishop:
-	needs to add all moves
+	check for correctness
 Knight:
-	needs to add all moves
+	check for correctness
 Rook:
-	needs to add all moves
+	check for correctness
 Pawn:
 	check for correctness
 		attention to en passant

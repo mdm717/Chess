@@ -11,7 +11,10 @@ public class Queen extends Piece {
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {
 		// TODO Auto-generated method stub
-		return false;
+		  new Bishop(color).canMove(start, target, b);
+		
+		return new Rook(color).canMove(start, target, b) || 
+				  new Bishop(color).canMove(start, target, b);
 	}
 
 }
