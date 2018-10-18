@@ -1,12 +1,20 @@
 King:
 	working
 Queen:
-	needs work
+	working
 Bishop:
-	needs work
+	working
 Knight:
 	working
 Rook:
-	needs work
+	working
 Pawn:
 	working
+	
+Draw and Resign have been implemented
+
+Still Needs:
+	Checkmate
+	Check
+	Promotion
+	**Stalemate**
