@@ -1,14 +1,12 @@
 King:
-	check for correctness
-		attention to castling
+	working
 Queen:
-	check for correctness
+	needs work
 Bishop:
-	check for correctness
+	needs work
 Knight:
-	check for correctness
+	working
 Rook:
-	check for correctness
+	needs work
 Pawn:
-	check for correctness
-		attention to en passant
+	working
