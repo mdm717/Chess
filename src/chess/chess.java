@@ -8,15 +8,29 @@ public class chess {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
+		boolean turn = true;
 		
 		b = new Board();
 		while (true) {
 			System.out.println(b.toString());
 			String input = sc.nextLine();
 			if (input.charAt(2)==' ') {
-				move(""+input.charAt(0)+input.charAt(1),""+input.charAt(3)+input.charAt(4));
+				if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
+					move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4));
+					turn=!turn;
+				}
 			}
 		}
+	}
+	
+	public static boolean isTurn(String start, boolean color) {
+		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
+		int startCol = Board.columnNum(start.charAt(0));
+		
+		if (b.board[startRow][startCol].getColorBoolean()==color)
+			return true;
+		
+		return false;
 	}
 	
 	public static boolean move(String start, String target) {
