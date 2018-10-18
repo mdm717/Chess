@@ -22,6 +22,17 @@ public abstract class Piece {
 		return color;
 	}
 	
+	public void resetPassant(Piece[][] b ) {
+		for(int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
+				if(b[i][j]!=null)
+					if (b[i][j].getColorBoolean()!=color && b[i][j] instanceof Pawn) {
+						((Pawn) b[i][j]).passPawn=false;
+					}
+			}
+		}
+	}
+	
 	public String toString() {
 		if (color)
 			return "w" + symbol;

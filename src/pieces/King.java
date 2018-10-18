@@ -34,10 +34,22 @@ public class King extends Piece {
 		
 		//---------add castling logic here---------//
 		if (moves==0 && startRow==targetRow) {
-			if (startRow-targetRow==2 && b[startRow][1]==null && b[startRow][2]==null && b[startRow][3]==null && ((Rook)b[startRow][0]).moves==0)
+			if (startCol-targetCol==2 && b[startRow][1]==null && b[startRow][2]==null && b[startRow][3]==null && ((Rook)b[startRow][0]).moves==0) {			
+					b[targetRow][3] = b[targetRow][0];
+					((Rook) b[targetRow][3]).moves++;
+					b[targetRow][0]=null;
+					return true;
+			}
+
+			
+			
+		//	return true;
+			else if (startCol-targetCol==-2 && b[startRow][5]==null && b[startRow][6]==null && ((Rook)b[startRow][7]).moves==0) {
+				b[targetRow][5] = b[targetRow][7];
+				((Rook) b[targetRow][5]).moves++;
+				b[targetRow][7]=null;
 				return true;
-			else if (startRow-targetRow==-2 && b[startRow][5]==null && b[startRow][6]==null && ((Rook)b[startRow][7]).moves==0)
-				return true;
+			}
 		}
 		
 		

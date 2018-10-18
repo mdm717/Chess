@@ -6,10 +6,30 @@ public class Pawn extends Piece {
 
 	final int WHITE_START = 1;
 	final int BLACK_START = 6;
+	boolean passPawn = false;
 	
 	public Pawn(boolean c) {
 		super(c);
 		symbol = 'p';
+	}
+	
+	
+	
+	@Override
+	public void resetPassant(Piece[][] b ) {
+	}
+	
+	public void resetPassant(Piece[][] b, int k) {
+
+		for(int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
+				if(b[i][j]!=null) {
+					if (b[i][j].getColorBoolean()!=color && b[i][j] instanceof Pawn) {
+						((Pawn) b[i][j]).passPawn=false;
+					}
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -20,52 +40,52 @@ public class Pawn extends Piece {
 		int targetRow = Integer.parseInt(target.charAt(1)+"") - 1;
 		int targetCol = Board.columnNum(target.charAt(0));
 		
-		if (color) {										//white pawns
-			if (startCol==targetCol) { //move straight
-				if (((targetRow-startRow==2 && startRow==WHITE_START) || targetRow-startRow==1)
-						&& b[targetCol][targetRow]==null)
-					return true;
-			}
+		if (color && targetRow<startRow) {
+			return false;
+		} else if (!color && startRow<targetRow) {
+			return false;
+		}
+		
+		if (b[targetRow][targetCol] != null && startCol==targetCol) {
+			return false;
+		}
+		
+		if (Math.abs(startRow-targetRow)==2 && targetCol==startCol && 		//two-space move from starting
+				((color && startRow==WHITE_START) || (!color && startRow==BLACK_START) )) {
+			resetPassant(b,0);
+			passPawn=true;
+			return true;
+		}
+		if (Math.abs(startRow-targetRow)==1 && targetCol==startCol) {		//one-space move
 
-			if (startCol+1==targetCol || startCol-1==targetCol) { //attack
-				if (targetRow-startRow==1 && b[targetCol][targetRow-1]!=null) {
-					if (b[targetCol][targetRow-1].getColorBoolean()!=color) {
-						return true;
-					}
-				}
-				//----------en passant---------//
-				if (targetRow-startRow==2 && startRow==WHITE_START 
-						&& b[targetCol][targetRow-1]!=null && b[targetCol][targetRow]==null) {
-					if (b[targetCol][targetRow-1].getColorBoolean()!=color) {
-						return true;
-					}
-				}
+			resetPassant(b,0);
+			passPawn=false;
+			return true;
+		}
+		
+		//-------attacking--------//
+		if(b[targetRow][targetCol] != null) {
+			if (Math.abs(startRow-targetRow)==1 && (targetCol+1==startCol || targetCol-1==startCol) && 
+					b[targetRow][targetCol].getColorBoolean()!=color) {		//one-space attack
+	
+				resetPassant(b,0);
+				passPawn=false;
+				return true;
 			}
-			
-			
-		}else {												//black pawns
-			if (startCol==targetCol) { //move straight
-				if (((targetRow-startRow==-2 && startRow==BLACK_START) || targetRow-startRow==-1)
-						&& b[targetCol][targetRow]==null)
-					return true;
-			}
-
-			if (startCol+1==targetCol || startCol-1==targetCol) { //attack
-				if (targetRow-startRow==-1 && b[targetCol][targetRow+1]!=null) {
-					if (b[targetCol][targetRow+1].getColorBoolean()!=color) {
-						return true;
+		}
+		
+		//--------en passant------//
+		
+		if (Math.abs(startRow-targetRow)==1 && (targetCol+1==startCol || targetCol-1==startCol)) {		//one-space attack
+				if (b[startRow][targetCol]!=null) {
+					if (b[startRow][targetCol].getColorBoolean()!=color && b[startRow][targetCol] instanceof Pawn) {
+						if (((Pawn)b[startRow][targetCol]).passPawn) {
+							b[startRow][targetCol]=null;
+							passPawn=false;
+							return true;
+						}
 					}
 				}
-				//----------en passant---------//
-				if (targetRow-startRow==-2 && startRow==BLACK_START
-						&& b[targetCol][targetRow+1]!=null&& b[targetCol][targetRow]==null) {
-					if (b[targetCol][targetRow+1].getColorBoolean()!=color) {
-						return true;
-					}
-				}
-			}
-			
-			
 		}
 		
 		return false;
