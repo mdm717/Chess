@@ -9,16 +9,50 @@ public class chess {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		boolean turn = true;
+		boolean drawAsked = false;
 		
 		b = new Board();
 		while (true) {
 			System.out.println(b.toString());
 			String input = sc.nextLine();
-			if (input.charAt(2)==' ') {
+//draw	
+			if (input.equals("draw") && drawAsked) {
+				return;
+			}
+			if (drawAsked && !input.equals("draw")) {
+				drawAsked = false;
+			}
+			
+//regular move
+			if (input.charAt(2)==' ' && input.length()==5) {
 				if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
-					move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4));
-					turn=!turn;
+					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
+						turn=!turn;
+					} else {
+						System.out.println("Illegal move, try again");
+					}
 				}
+			}
+//draw
+			if (input.charAt(2)==' ' && input.length()==11 && input.substring(6).equals("draw?")) {
+				if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
+					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
+						turn=!turn;
+						drawAsked= true;
+					} else {
+						System.out.println("Illegal move, try again");
+					}
+				}
+			}
+			
+//resign
+			if (input.equals("resign")) {
+				if (turn) {
+					System.out.println("Black wins");
+				} else {
+					System.out.println("White wins");
+				}
+				return;
 			}
 		}
 	}
