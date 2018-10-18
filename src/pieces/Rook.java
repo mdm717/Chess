@@ -21,18 +21,18 @@ public class Rook extends Piece {
 		int targetRow = Integer.parseInt(target.charAt(1)+"") - 1;
 		int targetCol = Board.columnNum(target.charAt(0));
 		
+		if (targetRow!=startRow && targetCol!=startCol) {
+			return false;
+		}
+		
 		if (b[targetRow][targetCol] != null) {
 			if (b[targetRow][targetCol].getColorBoolean()==color) {
 				return false;
 			}
 		}
 		
-		if (startRow!=targetRow && startCol!=targetCol) {
-			return false;
-		}
-		
 		if (targetRow>startRow) {
-			for (int i = startRow; i<targetRow; i++) {
+			for (int i = startRow+1; i<targetRow; i++) {
 				if (b[i][targetCol]!=null) {
 					return false;
 				}
@@ -40,7 +40,7 @@ public class Rook extends Piece {
 		}
 			
 		if (targetRow<startRow) {
-			for (int i = startRow; i>targetRow; i--) {
+			for (int i = startRow-1; i>targetRow; i--) {
 				if (b[i][targetCol]!=null) {
 					return false;
 				}
@@ -49,7 +49,7 @@ public class Rook extends Piece {
 		
 
 		if (targetCol>startCol) {
-			for (int i = startCol; i<targetCol; i++) {
+			for (int i = startCol+1; i<targetCol; i++) {
 				if (b[targetRow][i]!=null) {
 					return false;
 				}
@@ -57,7 +57,7 @@ public class Rook extends Piece {
 		}
 			
 		if (targetCol<startCol) {
-			for (int i = startCol; i>targetCol; i--) {
+			for (int i = startCol-1; i>targetCol; i--) {
 				if (b[targetRow][i]!=null) {
 					return false;
 				}

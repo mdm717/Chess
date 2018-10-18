@@ -28,7 +28,7 @@ public class Bishop extends Piece {
 		if (Math.abs(startRow-targetRow)==Math.abs(startCol-targetCol)) {
 
 			if (targetRow>startRow && targetCol>startCol) {
-				for (int i = startRow, j = startCol; i<targetRow; i++, j++) {
+				for (int i = startRow+1, j = startCol+1; i<targetRow; i++, j++) {
 					if (b[i][j]!=null) {
 						return false;
 					}
@@ -37,7 +37,7 @@ public class Bishop extends Piece {
 			
 
 			if (targetRow>startRow && targetCol<startCol) {
-				for (int i = startRow, j = startCol; i<targetRow; i++, j--) {
+				for (int i = startRow+1, j = startCol-1; i<targetRow; i++, j--) {
 					if (b[i][j]!=null) {
 						return false;
 					}
@@ -45,7 +45,7 @@ public class Bishop extends Piece {
 			}
 			
 			if (targetRow<startRow && targetCol<startCol) {
-				for (int i = startRow, j = startCol; i<targetRow; i--, j--) {
+				for (int i = startRow-1, j = startCol-1; i<targetRow; i--, j--) {
 					if (b[i][j]!=null) {
 						return false;
 					}
@@ -54,7 +54,7 @@ public class Bishop extends Piece {
 			
 
 			if (targetRow<startRow && targetCol>startCol) {
-				for (int i = startRow, j = startCol; i<targetRow; i--, j++) {
+				for (int i = startRow-1, j = startCol+1; i<targetRow; i--, j++) {
 					if (b[i][j]!=null) {
 						return false;
 					}

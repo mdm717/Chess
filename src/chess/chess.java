@@ -12,8 +12,10 @@ public class chess {
 		boolean drawAsked = false;
 		
 		b = new Board();
+
+		System.out.println(b.toString());
+		
 		while (true) {
-			System.out.println(b.toString());
 			String input = sc.nextLine();
 //draw	
 			if (input.equals("draw") && drawAsked) {
@@ -28,9 +30,12 @@ public class chess {
 				if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
 					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
 						turn=!turn;
+						print();
 					} else {
 						System.out.println("Illegal move, try again");
 					}
+				} else {
+					System.out.println("Illegal move, try again");
 				}
 			}
 //draw
@@ -39,9 +44,12 @@ public class chess {
 					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
 						turn=!turn;
 						drawAsked= true;
+						print();
 					} else {
 						System.out.println("Illegal move, try again");
 					}
+				} else {
+					System.out.println("Illegal move, try again");
 				}
 			}
 			
@@ -61,9 +69,10 @@ public class chess {
 		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
 		int startCol = Board.columnNum(start.charAt(0));
 		
-		if (b.board[startRow][startCol].getColorBoolean()==color)
-			return true;
-		
+		if (b.board[startRow][startCol]!=null) {
+			if (b.board[startRow][startCol].getColorBoolean()==color)
+				return true;
+		}
 		return false;
 	}
 	
@@ -77,8 +86,6 @@ public class chess {
 		if (b.board[startRow][startCol]!=null)
 		move = b.board[startRow][startCol].canMove(start,target, b.board);
 		
-		
-		System.out.println(move);
 		if (move) {
 			b.board[startRow][startCol].resetPassant(b.board);
 			b.board[targetRow][targetCol] = b.board[startRow][startCol];
@@ -88,4 +95,8 @@ public class chess {
 		return move;
 	}
 
+	public static void print() {
+		System.out.println(b.toString());
+	}
+	
 }
