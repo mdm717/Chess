@@ -15,5 +15,5 @@ Promotion, Draw, and Resign have been implemented
 
 Still Needs:
 	Checkmate
-	Check
+	Check - partially implemented - needs to check if in pawn's attack line or king's attack line - check rest for correctness
 	**Stalemate**

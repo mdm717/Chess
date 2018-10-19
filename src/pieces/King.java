@@ -56,4 +56,185 @@ public class King extends Piece {
 		
 		return false;
 	}
+	
+	public boolean safe(String target, Piece[][] b) {
+		int row = Integer.parseInt(target.charAt(1)+"") - 1;
+		int col = Board.columnNum(target.charAt(0));
+
+//checking rook and queen
+		for( int i = row+1; i<8;i++) {
+			if (b[i][col] != null) {
+				if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+
+		for( int i = row-1; i>=0;i--) {
+			if (b[i][col] != null) {
+				if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+		
+		for( int i = col+1; i<8;i++) {
+			if (b[row][i] != null) {
+				if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+
+		for( int i = col-1; i>=0;i--) {
+			if (b[row][i] != null) {
+				if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+		
+//checking queen and bishop
+
+		for( int i = row+1, j = col +1; i<8 && j<8;i++, j++) {
+			if (b[i][j] != null) {
+				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+
+
+		for( int i = row+1, j = col -1; i<8 && j>=8;i++, j--) {
+			if (b[i][j] != null) {
+				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+		
+
+		for( int i = row-1, j = col +1; i>=8 && j<8;i--, j++) {
+			if (b[i][j] != null) {
+				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+
+		for( int i = row-1, j = col-1; i>=8 && j>=8;i--, j--) {
+			if (b[i][j] != null) {
+				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
+					return false;
+				} else {
+					break;
+				}
+			}
+		}
+
+//knight		
+		
+		try {
+			if (b[row+2][col+1]!= null) {
+				if (b[row+2][col+1].getColorBoolean()!=color && b[row+2][col+1] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row+2][col-1]!= null) {
+				if (b[row+2][col-1].getColorBoolean()!=color && b[row+2][col-1] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row-2][col+1]!= null) {
+				if (b[row-2][col+1].getColorBoolean()!=color && b[row-2][col+1] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row-2][col-1]!= null) {
+				if (b[row-2][col-1].getColorBoolean()!=color && b[row-2][col-1] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+		
+		
+
+		try {
+			if (b[row+1][col+2]!= null) {
+				if (b[row+1][col+2].getColorBoolean()!=color && b[row+1][col+2] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row+1][col-2]!= null) {
+				if (b[row+1][col-2].getColorBoolean()!=color && b[row+1][col-2] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row-1][col+2]!= null) {
+				if (b[row-1][col+2].getColorBoolean()!=color && b[row-1][col+2] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+		try {
+			if (b[row-1][col-2]!= null) {
+				if (b[row-1][col-2].getColorBoolean()!=color && b[row-1][col-2] instanceof Knight) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			
+		}
+
+//Pawn
+		
+
+		
+		return true;
+	}
+	
 }
