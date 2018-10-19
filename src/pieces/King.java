@@ -57,6 +57,7 @@ public class King extends Piece {
 		return false;
 	}
 	
+	//returns false if a space is in a line of attack, or true if it is safe
 	public boolean safe(String target, Piece[][] b) {
 		int row = Integer.parseInt(target.charAt(1)+"") - 1;
 		int col = Board.columnNum(target.charAt(0));
@@ -154,9 +155,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row+2][col-1]!= null) {
@@ -164,9 +163,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row-2][col+1]!= null) {
@@ -174,9 +171,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row-2][col-1]!= null) {
@@ -184,9 +179,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 		
 		
 
@@ -196,9 +189,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row+1][col-2]!= null) {
@@ -206,9 +197,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row-1][col+2]!= null) {
@@ -216,9 +205,7 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		try {
 			if (b[row-1][col-2]!= null) {
@@ -226,12 +213,87 @@ public class King extends Piece {
 					return false;
 				}
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
-		}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
-//Pawn
+//Pawn and King
+		try {
+			if (b[row+1][col+1]!=null) {
+				if (((b[row+1][col+1] instanceof Pawn && color)|| b[row+1][col+1] instanceof King) 
+						&& b[row+1][col+1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+
+		try {
+			if (b[row+1][col-1]!=null) {
+				if (((b[row+1][col-1] instanceof Pawn && color) || b[row+1][col-1] instanceof King) 
+						&& b[row+1][col-1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 		
+
+		try {
+			if (b[row-1][col+1]!=null) {
+				if (((b[row-1][col+1] instanceof Pawn && !color) || b[row-1][col+1] instanceof King) 
+						&& b[row-1][col+1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+
+		try {
+			if (b[row-1][col-1]!=null) {
+				if (((b[row-1][col-1] instanceof Pawn && !color) || b[row-1][col-1] instanceof King) 
+						&& b[row-1][col-1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+		
+	
+		
+//King
+		
+
+		try {
+			if (b[row+1][col]!=null) {
+				if (b[row+1][col] instanceof King 
+						&& b[row+1][col].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+
+		try {
+			if (b[row-1][col]!=null) {
+				if (b[row-1][col] instanceof King 
+						&& b[row-1][col].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+		
+
+		try {
+			if (b[row][col+1]!=null) {
+				if (b[row][col+1] instanceof King 
+						&& b[row][col+1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
+
+		try {
+			if (b[row][col-1]!=null) {
+				if (b[row][col-1] instanceof King 
+						&& b[row][col-1].getColorBoolean()!=color) {
+					return false;
+				}
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		
 		return true;

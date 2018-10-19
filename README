@@ -15,5 +15,5 @@ Promotion, Draw, and Resign have been implemented
 
 Still Needs:
 	Checkmate
-	Check - partially implemented - needs to check if in pawn's attack line or king's attack line - check rest for correctness
+	Check - partially implemented - safe method in King class checks if a space on the board is safe for a king
 	**Stalemate**
