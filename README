@@ -11,10 +11,9 @@ Rook:
 Pawn:
 	working
 	
-Draw and Resign have been implemented
+Promotion, Draw, and Resign have been implemented
 
 Still Needs:
 	Checkmate
 	Check
-	Promotion
 	**Stalemate**

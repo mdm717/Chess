@@ -29,6 +29,15 @@ public class chess {
 			if (input.charAt(2)==' ' && input.length()==5) {
 				if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
 					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
+
+						int targetRow = Integer.parseInt(input.charAt(4)+"") - 1;
+						int targetCol = Board.columnNum(input.charAt(3));
+						
+						if (b.board[targetRow][targetCol] instanceof Pawn && (targetRow == 7 || targetRow == 0)) {
+							boolean color = b.board[targetRow][targetCol].getColorBoolean();
+							b.board[targetRow][targetCol] = new Queen(color);
+						}
+							
 						turn=!turn;
 						print();
 					} else {
@@ -37,6 +46,31 @@ public class chess {
 				} else {
 					System.out.println("Illegal move, try again");
 				}
+			}
+
+		//promotion move
+			if (input.length()==7) {
+					if (input.charAt(2)==' ' && input.charAt(5)==' ') {
+						if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
+							if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
+
+								int targetRow = Integer.parseInt(input.charAt(4)+"") - 1;
+								int targetCol = Board.columnNum(input.charAt(3));
+								
+								if (((targetRow== 7 && (b.board[targetRow][targetCol].getColorBoolean()) && b.board[targetRow][targetCol]  instanceof Pawn))
+										||(targetRow== 0 && !(b.board[targetRow][targetCol].getColorBoolean()) && b.board[targetRow][targetCol]  instanceof Pawn)) {
+									promote("" + input.charAt(3)+input.charAt(4), input.charAt(6));
+									turn=!turn;
+									print();
+								}
+								
+							} else {
+								System.out.println("Illegal move, try again");
+							}
+						} else {
+							System.out.println("Illegal move, try again");
+						}
+					}
 			}
 //draw
 			if (input.charAt(2)==' ' && input.length()==11 && input.substring(6).equals("draw?")) {
@@ -73,6 +107,31 @@ public class chess {
 			if (b.board[startRow][startCol].getColorBoolean()==color)
 				return true;
 		}
+		return false;
+	}
+	
+	public static boolean promote(String target, char c) {
+
+		int targetRow = Integer.parseInt(target.charAt(1)+"") - 1;
+		int targetCol = Board.columnNum(target.charAt(0));
+		boolean color = b.board[targetRow][targetCol].getColorBoolean();
+		
+		switch (c) {
+		case 'R':
+			b.board[targetRow][targetCol] = new Rook(color);
+			return true;
+		case 'N':
+			b.board[targetRow][targetCol] = new Knight(color);
+			return true;
+		case 'B':
+			b.board[targetRow][targetCol] = new Bishop(color);
+			return true;
+		case 'Q':
+			b.board[targetRow][targetCol] = new Queen(color);
+			return true;
+		}
+		
+		
 		return false;
 	}
 	
