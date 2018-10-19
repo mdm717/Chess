@@ -3,11 +3,11 @@ package chess;
 import pieces.*;
 import java.util.Scanner; 
 
-public class chess {
+public class Chess {
 	private static Board b;
+	private static Scanner sc;
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		boolean turn = true;
 		boolean drawAsked = false;
 		
@@ -16,7 +16,15 @@ public class chess {
 		System.out.println(b.toString());
 		
 		while (true) {
+			if (turn) {
+				System.out.print("\nWhite's move: ");
+			} else {	
+				System.out.print("\nBlack's move: ");
+			}
+			
 			String input = sc.nextLine();
+			
+			System.out.println();
 //draw	
 			if (input.equals("draw") && drawAsked) {
 				return;
@@ -48,7 +56,7 @@ public class chess {
 				}
 			}
 
-		//promotion move
+//promotion move
 			if (input.length()==7) {
 					if (input.charAt(2)==' ' && input.charAt(5)==' ') {
 						if (isTurn(""+input.charAt(0)+input.charAt(1), turn)) {
@@ -93,9 +101,24 @@ public class chess {
 					System.out.println("Black wins");
 				} else {
 					System.out.println("White wins");
+				
 				}
 				return;
 			}
+		
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j< 8; j++) {
+					try {
+						if (b.board[i][j] instanceof King) {
+							((King)b.board[i][j]).setCheck(!((King)b.board[i][j]).safe(i, j, b.board));
+							if (((King)b.board[i][j]).inCheck()) {
+								System.out.println("Check");
+							}
+						}
+					} catch (NullPointerException e) {}
+				}
+			}
+			
 		}
 	}
 	

@@ -4,14 +4,19 @@ import chess.Board;
 
 public class King extends Piece {
 	private int moves;
+	private boolean check;
 	
+
 	public King(boolean c) {
 		super(c);
 		symbol = 'K';
 		moves = 0;
+		check = false;
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {	//needs to add castling
 		// TODO Auto-generated method stub
@@ -24,11 +29,19 @@ public class King extends Piece {
 		if ((startRow==targetRow || startRow==targetRow+1 || startRow==targetRow-1) &&
 				(startCol==targetCol || startCol==targetCol+1 || startCol==targetCol-1)) {
 				if (b[targetRow][targetCol]==null) {
-					moves++;
-					return true;
+					if (safe(targetRow,targetCol, b)) {
+						moves++;
+						return true;
+					} else {
+						return false;
+					}
 				} else if (b[targetRow][targetCol].getColorBoolean()!=color) {
-					moves++;
-					return true;
+					if (safe(targetRow,targetCol, b)) {
+						moves++;
+						return true;
+					} else {
+						return false;
+					}
 				} 
 		}
 		
@@ -58,9 +71,7 @@ public class King extends Piece {
 	}
 	
 	//returns false if a space is in a line of attack, or true if it is safe
-	public boolean safe(String target, Piece[][] b) {
-		int row = Integer.parseInt(target.charAt(1)+"") - 1;
-		int col = Board.columnNum(target.charAt(0));
+	public boolean safe(int row, int col, Piece[][] b) {
 
 //checking rook and queen
 		for( int i = row+1; i<8;i++) {
@@ -116,7 +127,7 @@ public class King extends Piece {
 		}
 
 
-		for( int i = row+1, j = col -1; i<8 && j>=8;i++, j--) {
+		for( int i = row+1, j = col-1; i<8 && j>=0;i++, j--) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
 					return false;
@@ -127,7 +138,7 @@ public class King extends Piece {
 		}
 		
 
-		for( int i = row-1, j = col +1; i>=8 && j<8;i--, j++) {
+		for( int i = row-1, j = col +1; i>=0 && j<8;i--, j++) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
 					return false;
@@ -137,7 +148,7 @@ public class King extends Piece {
 			}
 		}
 
-		for( int i = row-1, j = col-1; i>=8 && j>=8;i--, j--) {
+		for( int i = row-1, j = col-1; i>=0 && j>=0;i--, j--) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
 					return false;
@@ -298,5 +309,12 @@ public class King extends Piece {
 		
 		return true;
 	}
-	
+
+	public boolean inCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 }

@@ -15,5 +15,5 @@ Promotion, Draw, and Resign have been implemented
 
 Still Needs:
 	Checkmate
-	Check - partially implemented - safe method in King class checks if a space on the board is safe for a king
+	Check - partially implemented - prints when king is in check, will not let king move into spots in check - still needs to implement not letting other moves put king in check
 	**Stalemate**
