@@ -380,5 +380,7 @@ public class King extends Piece {
 				return false;
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		return true;
 	}
 }
