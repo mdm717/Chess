@@ -11,9 +11,8 @@ Rook:
 Pawn:
 	working
 	
-Promotion, Draw, and Resign have been implemented
+Check, Promotion, Draw, and Resign have been implemented
 
 Still Needs:
-	Checkmate - might be done?
-	Check - partially implemented - prints when king is in check, will not let king move into spots in check - still needs to implement not letting other moves put king in check
-	**Stalemate**
+	Checkmate - currently only able to get out of check by eliminating threat or moving to space spot. - **must add blocking attack**
+	Stalemate - **extra credit**

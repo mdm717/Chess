@@ -27,22 +27,19 @@ public class King extends Piece {
 		int targetCol = Board.columnNum(target.charAt(0));
 		
 		if ((startRow==targetRow || startRow==targetRow+1 || startRow==targetRow-1) &&
-				(startCol==targetCol || startCol==targetCol+1 || startCol==targetCol-1)) {
-				if (b[targetRow][targetCol]==null) {
-					if (safe(targetRow,targetCol, b)) {
-						moves++;
-						return true;
-					} else {
-						return false;
-					}
-				} else if (b[targetRow][targetCol].getColorBoolean()!=color) {
-					if (safe(targetRow,targetCol, b)) {
-						moves++;
-						return true;
-					} else {
-						return false;
-					}
-				} 
+				(startCol==targetCol || startCol==targetCol+1 || startCol==targetCol-1) && 
+				!(startRow==targetRow && startCol==targetCol)) {
+			if (b[targetRow][targetCol]==null) {
+				if (safe(targetRow,targetCol, b)) {
+					moves++;
+					return true;
+				}
+			} else if (b[targetRow][targetCol].getColorBoolean()!=color) {
+				if (safe(targetRow,targetCol, b)) {
+					moves++;
+					return true;
+				}
+			} 
 		}
 		
 		//---------add castling logic here---------//
@@ -316,5 +313,80 @@ public class King extends Piece {
 
 	public void setCheck(boolean check) {
 		this.check = check;
+	}
+
+	public boolean checkMate(int startingCol, int startingRow, Piece[][] b){
+		try{
+			if(this.safe(startingCol, startingRow+1, b)){
+				if (b[startingRow+1][startingCol] == null)
+					return false;
+				if (b[startingRow+1][startingCol].getColorBoolean()!=color)
+					return false;
+			}
+		}catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow+1,b)){
+				if (b[startingRow+1][startingCol+1] == null)
+					return false;
+				if (b[startingRow+1][startingCol+1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow,b)){
+				if (b[startingRow][startingCol+1] == null)
+					return false;
+				if (b[startingRow][startingCol+1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow-1,b)){
+				if (b[startingRow-1][startingCol+1] == null)
+					return false;
+				if (b[startingRow-1][startingCol+1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol, startingRow-1,b)){
+				if (b[startingRow-1][startingCol] == null)
+					return false;
+				if (b[startingRow-1][startingCol].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow-1,b)){
+				if (b[startingRow-1][startingCol-1] == null)
+					return false;
+				if (b[startingRow-1][startingCol-1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow,b)){
+				if (b[startingRow][startingCol-1] == null)
+					return false;
+				if (b[startingRow][startingCol-1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow+1,b)){
+				if (b[startingRow+1][startingCol-1] == null)
+					return false;
+				if (b[startingRow+1][startingCol-1].getColorBoolean()!=color)
+					return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		return true;
 	}
 }

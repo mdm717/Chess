@@ -1,7 +1,8 @@
 package chess;
 
-import pieces.*;
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import pieces.*; 
 
 public class Chess {
 	private static Board b;
@@ -51,12 +52,12 @@ public class Chess {
 					} 
 					//if it is a legal move, and the requested position on the board is an instance of a King
 					//Checkmate, and game ends
-					if(b.board[targetRow][targetCol] instanceof King)
+/*					if(b.board[targetRow][targetCol] instanceof King)
 					{
 						System.out.println("Checkmate.");
 						return 0;
 					}
-					//
+*/					//
 					//
 					else {
 						System.out.println("Illegal move, try again");
@@ -115,14 +116,20 @@ public class Chess {
 				}
 				return;
 			}
-		
+
+			
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j< 8; j++) {
 					try {
 						if (b.board[i][j] instanceof King) {
 							((King)b.board[i][j]).setCheck(!((King)b.board[i][j]).safe(i, j, b.board));
 							if (((King)b.board[i][j]).inCheck()) {
-								System.out.println("Check");
+								System.out.print("Check");
+								if(((King)b.board[i][j]).checkMate(j, i, b.board)) {
+
+									System.out.println("mate");
+									System.exit(0);
+								}
 							}
 						}
 					} catch (NullPointerException e) {}
@@ -179,9 +186,39 @@ public class Chess {
 		move = b.board[startRow][startCol].canMove(start,target, b.board);
 		
 		if (move) {
-			b.board[startRow][startCol].resetPassant(b.board);
+			int kingRow=-1;
+			int kingCol=-1;
+			
+//			b.board[startRow][startCol].resetPassant(b.board);
+			Piece temp = b.board[targetRow][targetCol];
 			b.board[targetRow][targetCol] = b.board[startRow][startCol];
 			b.board[startRow][startCol]=null;
+			
+			for(int i = 0; i < 8; i++) {
+				boolean breakIt=false;
+				for (int j = 0; j <8; j++) {
+					if (b.board[i][j]!=null) {
+						if (b.board[i][j] instanceof King && b.board[i][j].getColorBoolean()==b.board[targetRow][targetCol].getColorBoolean()) {
+							kingRow=i;
+							kingCol=j;
+							breakIt = true;
+							break;
+						}
+					}
+				}
+				if (breakIt) {
+					break;
+				}
+			}
+			
+			if (!((King)b.board[kingRow][kingCol]).safe(kingRow, kingCol, b.board)) {
+				b.board[startRow][startCol]=b.board[targetRow][targetCol];
+				b.board[targetRow][targetCol] = temp;
+				move = false;
+			} else {
+				b.board[targetRow][targetCol].resetPassant(b.board);
+			}
+			
 		}
 		
 		return move;

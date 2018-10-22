@@ -5,7 +5,7 @@ import pieces.*;
 public class Board {
 	public Piece[][] board = new Piece[8][8];
 	
-	public Board () {
+	public Board() {
 		for(int i = 0; i < 8; i++) {
 			board[1][i]=new Pawn(true);
 			board[6][i]=new Pawn(false);
