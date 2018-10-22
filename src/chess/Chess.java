@@ -51,13 +51,13 @@ public class Chess {
 					} 
 					//if it is a legal move, and the requested position on the board is an instance of a King
 					//Checkmate, and game ends
-					if(b.board[targetRow][targetCol] instanceof King)
+					/*if(b.board[targetRow][targetCol] instanceof King)
 					{
 						System.out.println("Checkmate.");
 						return 0;
-					}
-					//
-					//
+					}*/
+					
+					
 					else {
 						System.out.println("Illegal move, try again");
 					}

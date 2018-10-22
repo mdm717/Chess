@@ -33,6 +33,13 @@ public class King extends Piece {
 						moves++;
 						return true;
 					} else {
+						//This still has to check if any other pieces can block the checkmate somehow
+						//Every pieces move of specific color will have to be checked :o
+						if(checkMate(startCol, startRow)){
+							System.out.println("Checkmate");
+						}
+						//
+						//
 						return false;
 					}
 				} else if (b[targetRow][targetCol].getColorBoolean()!=color) {
@@ -40,6 +47,13 @@ public class King extends Piece {
 						moves++;
 						return true;
 					} else {
+						//
+						//
+						if(checkMate(startCol, startRow)){
+							System.out.println("Checkmate");
+						}
+						//
+						//
 						return false;
 					}
 				} 
@@ -316,5 +330,55 @@ public class King extends Piece {
 
 	public void setCheck(boolean check) {
 		this.check = check;
+	}
+	
+	public boolean checkMate(int startingCol, int startingRow){
+		try{
+			if(safe(startingCol, startingRow+1)){		
+				return false;
+			}
+		}catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol+1, startingRow+1)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol+1, startingRow)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCok+1, startingRow-1)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol, startingRow-1)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol-1, startingRow-1)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol-1, startingRow)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			else if(safe(startingCol-1, startingRow+1)){
+				return false;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
 	}
 }
