@@ -16,4 +16,5 @@ Promotion, Draw, and Resign have been implemented
 Still Needs:
 	Checkmate - might be done?
 	Check - partially implemented - prints when king is in check, will not let king move into spots in check - still needs to implement not letting other moves put king in check
-	**Stalemate**
+	**Stalemate** - (NOT DONE) this occurs when it is a players turn who is not in check and does not have a legal move
+					[Check if all player is in check; if false check if they have legal moves; if false STALEMATE -> else gets to move]
