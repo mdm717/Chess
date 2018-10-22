@@ -30,12 +30,12 @@ public class King extends Piece {
 				(startCol==targetCol || startCol==targetCol+1 || startCol==targetCol-1) && 
 				!(startRow==targetRow && startCol==targetCol)) {
 			if (b[targetRow][targetCol]==null) {
-				if (safe(targetRow,targetCol, b)) {
+				if (safe(targetRow,targetCol, b)==0) {
 					moves++;
 					return true;
 				}
 			} else if (b[targetRow][targetCol].getColorBoolean()!=color) {
-				if (safe(targetRow,targetCol, b)) {
+				if (safe(targetRow,targetCol, b)==0) {
 					moves++;
 					return true;
 				}
@@ -67,14 +67,24 @@ public class King extends Piece {
 		return false;
 	}
 	
-	//returns false if a space is in a line of attack, or true if it is safe
-	public boolean safe(int row, int col, Piece[][] b) {
+	
+	public int safe(int row, int col, Piece[][] b) {
+		
+		/*
+		 *  RETURNS
+		 *  0 - safe
+		 *  1 - rook, queen (vertical or horizontal)
+		 *  2 - bishop, queen (diagonal)
+		 *  3 - knight
+		 *  4 - pawn, king (diagonal)
+		 *  5 - king (vertical or horizontal)
+		 */
 
 //checking rook and queen
 		for( int i = row+1; i<8;i++) {
 			if (b[i][col] != null) {
 				if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != color)) {
-					return false;
+					return 1;
 				} else {
 					break;
 				}
@@ -84,7 +94,7 @@ public class King extends Piece {
 		for( int i = row-1; i>=0;i--) {
 			if (b[i][col] != null) {
 				if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != color)) {
-					return false;
+					return 1;
 				} else {
 					break;
 				}
@@ -94,7 +104,7 @@ public class King extends Piece {
 		for( int i = col+1; i<8;i++) {
 			if (b[row][i] != null) {
 				if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != color)) {
-					return false;
+					return 1;
 				} else {
 					break;
 				}
@@ -104,7 +114,7 @@ public class King extends Piece {
 		for( int i = col-1; i>=0;i--) {
 			if (b[row][i] != null) {
 				if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != color)) {
-					return false;
+					return 1;
 				} else {
 					break;
 				}
@@ -116,7 +126,7 @@ public class King extends Piece {
 		for( int i = row+1, j = col +1; i<8 && j<8;i++, j++) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
-					return false;
+					return 2;
 				} else {
 					break;
 				}
@@ -127,7 +137,7 @@ public class King extends Piece {
 		for( int i = row+1, j = col-1; i<8 && j>=0;i++, j--) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
-					return false;
+					return 2;
 				} else {
 					break;
 				}
@@ -138,7 +148,7 @@ public class King extends Piece {
 		for( int i = row-1, j = col +1; i>=0 && j<8;i--, j++) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
-					return false;
+					return 2;
 				} else {
 					break;
 				}
@@ -148,7 +158,7 @@ public class King extends Piece {
 		for( int i = row-1, j = col-1; i>=0 && j>=0;i--, j--) {
 			if (b[i][j] != null) {
 				if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color != color)) {
-					return false;
+					return 2;
 				} else {
 					break;
 				}
@@ -160,7 +170,7 @@ public class King extends Piece {
 		try {
 			if (b[row+2][col+1]!= null) {
 				if (b[row+2][col+1].getColorBoolean()!=color && b[row+2][col+1] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -168,7 +178,7 @@ public class King extends Piece {
 		try {
 			if (b[row+2][col-1]!= null) {
 				if (b[row+2][col-1].getColorBoolean()!=color && b[row+2][col-1] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -176,7 +186,7 @@ public class King extends Piece {
 		try {
 			if (b[row-2][col+1]!= null) {
 				if (b[row-2][col+1].getColorBoolean()!=color && b[row-2][col+1] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -184,7 +194,7 @@ public class King extends Piece {
 		try {
 			if (b[row-2][col-1]!= null) {
 				if (b[row-2][col-1].getColorBoolean()!=color && b[row-2][col-1] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -194,7 +204,7 @@ public class King extends Piece {
 		try {
 			if (b[row+1][col+2]!= null) {
 				if (b[row+1][col+2].getColorBoolean()!=color && b[row+1][col+2] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -202,7 +212,7 @@ public class King extends Piece {
 		try {
 			if (b[row+1][col-2]!= null) {
 				if (b[row+1][col-2].getColorBoolean()!=color && b[row+1][col-2] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -210,7 +220,7 @@ public class King extends Piece {
 		try {
 			if (b[row-1][col+2]!= null) {
 				if (b[row-1][col+2].getColorBoolean()!=color && b[row-1][col+2] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -218,7 +228,7 @@ public class King extends Piece {
 		try {
 			if (b[row-1][col-2]!= null) {
 				if (b[row-1][col-2].getColorBoolean()!=color && b[row-1][col-2] instanceof Knight) {
-					return false;
+					return 3;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -228,7 +238,7 @@ public class King extends Piece {
 			if (b[row+1][col+1]!=null) {
 				if (((b[row+1][col+1] instanceof Pawn && color)|| b[row+1][col+1] instanceof King) 
 						&& b[row+1][col+1].getColorBoolean()!=color) {
-					return false;
+					return 4;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -237,7 +247,7 @@ public class King extends Piece {
 			if (b[row+1][col-1]!=null) {
 				if (((b[row+1][col-1] instanceof Pawn && color) || b[row+1][col-1] instanceof King) 
 						&& b[row+1][col-1].getColorBoolean()!=color) {
-					return false;
+					return 4;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -247,7 +257,7 @@ public class King extends Piece {
 			if (b[row-1][col+1]!=null) {
 				if (((b[row-1][col+1] instanceof Pawn && !color) || b[row-1][col+1] instanceof King) 
 						&& b[row-1][col+1].getColorBoolean()!=color) {
-					return false;
+					return 4;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -256,7 +266,7 @@ public class King extends Piece {
 			if (b[row-1][col-1]!=null) {
 				if (((b[row-1][col-1] instanceof Pawn && !color) || b[row-1][col-1] instanceof King) 
 						&& b[row-1][col-1].getColorBoolean()!=color) {
-					return false;
+					return 4;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -270,7 +280,7 @@ public class King extends Piece {
 			if (b[row+1][col]!=null) {
 				if (b[row+1][col] instanceof King 
 						&& b[row+1][col].getColorBoolean()!=color) {
-					return false;
+					return 5;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -279,7 +289,7 @@ public class King extends Piece {
 			if (b[row-1][col]!=null) {
 				if (b[row-1][col] instanceof King 
 						&& b[row-1][col].getColorBoolean()!=color) {
-					return false;
+					return 5;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -289,7 +299,7 @@ public class King extends Piece {
 			if (b[row][col+1]!=null) {
 				if (b[row][col+1] instanceof King 
 						&& b[row][col+1].getColorBoolean()!=color) {
-					return false;
+					return 5;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
@@ -298,13 +308,13 @@ public class King extends Piece {
 			if (b[row][col-1]!=null) {
 				if (b[row][col-1] instanceof King 
 						&& b[row][col-1].getColorBoolean()!=color) {
-					return false;
+					return 5;
 				}
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {}
 
 		
-		return true;
+		return 0;
 	}
 
 	public boolean inCheck() {
@@ -317,7 +327,7 @@ public class King extends Piece {
 
 	public boolean checkMate(int startingCol, int startingRow, Piece[][] b){
 		try{
-			if(this.safe(startingCol, startingRow+1, b)){
+			if(this.safe(startingCol, startingRow+1, b)==0){
 				if (b[startingRow+1][startingCol] == null)
 					return false;
 				if (b[startingRow+1][startingCol].getColorBoolean()!=color)
@@ -326,7 +336,7 @@ public class King extends Piece {
 		}catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol+1, startingRow+1,b)){
+			if(this.safe(startingCol+1, startingRow+1,b)==0){
 				if (b[startingRow+1][startingCol+1] == null)
 					return false;
 				if (b[startingRow+1][startingCol+1].getColorBoolean()!=color)
@@ -335,7 +345,7 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol+1, startingRow,b)){
+			if(this.safe(startingCol+1, startingRow,b)==0){
 				if (b[startingRow][startingCol+1] == null)
 					return false;
 				if (b[startingRow][startingCol+1].getColorBoolean()!=color)
@@ -344,7 +354,7 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol+1, startingRow-1,b)){
+			if(this.safe(startingCol+1, startingRow-1,b)==0){
 				if (b[startingRow-1][startingCol+1] == null)
 					return false;
 				if (b[startingRow-1][startingCol+1].getColorBoolean()!=color)
@@ -353,7 +363,7 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol, startingRow-1,b)){
+			if(this.safe(startingCol, startingRow-1,b)==0){
 				if (b[startingRow-1][startingCol] == null)
 					return false;
 				if (b[startingRow-1][startingCol].getColorBoolean()!=color)
@@ -362,7 +372,7 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol-1, startingRow-1,b)){
+			if(this.safe(startingCol-1, startingRow-1,b)==0){
 				if (b[startingRow-1][startingCol-1] == null)
 					return false;
 				if (b[startingRow-1][startingCol-1].getColorBoolean()!=color)
@@ -371,7 +381,7 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol-1, startingRow,b)){
+			if(this.safe(startingCol-1, startingRow,b)==0){
 				if (b[startingRow][startingCol-1] == null)
 					return false;
 				if (b[startingRow][startingCol-1].getColorBoolean()!=color)
@@ -380,13 +390,218 @@ public class King extends Piece {
 		} catch(ArrayIndexOutOfBoundsException e) {}
 		
 		try{
-			if(this.safe(startingCol-1, startingRow+1,b)){
+			if(this.safe(startingCol-1, startingRow+1,b)==0){
 				if (b[startingRow+1][startingCol-1] == null)
 					return false;
 				if (b[startingRow+1][startingCol-1].getColorBoolean()!=color)
 					return false;
 			}
 		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		int row = startingRow;
+		int col = startingCol;
+		
+		if (safe(startingRow,startingCol, b)==1) {//rook, queen vertical/horizontal
+
+			for( int i = row+1; i<8;i++) {
+				if (b[i][col] != null) {
+					if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+
+			for( int i = row-1; i>=0;i--) {
+				if (b[i][col] != null) {
+					if ((b[i][col] instanceof Rook || b[i][col] instanceof Queen) && (b[i][col].color != !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+			
+			for( int i = col+1; i<8;i++) {
+				if (b[row][i] != null) {
+					if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+
+			for( int i = col-1; i>=0;i--) {
+				if (b[row][i] != null) {
+					if ((b[row][i] instanceof Rook || b[row][i] instanceof Queen) && (b[row][i].color != !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+		} else if (safe(startingRow,startingCol, b)==2) {//diagonal
+			for( int i = row+1, j = col +1; i<8 && j<8;i++, j++) {
+				if (b[i][j] != null) {
+					if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color == !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+
+
+			for( int i = row+1, j = col-1; i<8 && j>=0;i++, j--) {
+				if (b[i][j] != null) {
+					if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color == !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+			
+
+			for( int i = row-1, j = col +1; i>=0 && j<8;i--, j++) {
+				if (b[i][j] != null) {
+					if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color == !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+
+			for( int i = row-1, j = col-1; i>=0 && j>=0;i--, j--) {
+				if (b[i][j] != null) {
+					if ((b[i][j] instanceof Bishop || b[i][j] instanceof Queen) && (b[i][j].color == !color)) {
+						return false;
+					} else {
+						break;
+					}
+				}
+			}
+		} else if (safe(startingRow,startingCol, b)==3) {//knight
+			try {
+				if (b[row+2][col+1]!= null) {
+					if (b[row+2][col+1].getColorBoolean()!=color && b[row+2][col+1] instanceof Knight) {
+						if (((Knight)b[row+2][col+1]).safe(row+2, col+1, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row+2][col-1]!= null) {
+					if (b[row+2][col-1].getColorBoolean()!=color && b[row+2][col-1] instanceof Knight) {
+						if (((Knight)b[row+2][col-1]).safe(row+2, col-1, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row-2][col+1]!= null) {
+					if (b[row-2][col+1].getColorBoolean()!=color && b[row-2][col+1] instanceof Knight) {
+						if (((Knight)b[row-2][col+1]).safe(row-2, col+1, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row-2][col-1]!= null) {
+					if (b[row-2][col-1].getColorBoolean()!=color && b[row-2][col-1] instanceof Knight) {
+						if (((Knight)b[row-2][col-1]).safe(row-2, col-1, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+			
+			
+
+			try {
+				if (b[row+1][col+2]!= null) {
+					if (b[row+1][col+2].getColorBoolean()!=color && b[row+1][col+2] instanceof Knight) {
+						if (((Knight)b[row+1][col+2]).safe(row+1, col+2, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row+1][col-2]!= null) {
+					if (b[row+1][col-2].getColorBoolean()!=color && b[row+1][col-2] instanceof Knight) {
+						if (((Knight)b[row+1][col-2]).safe(row+1, col-2, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row-1][col+2]!= null) {
+					if (b[row-1][col+2].getColorBoolean()!=color && b[row-1][col+2] instanceof Knight) {
+						if (((Knight)b[row-1][col+2]).safe(row-1, col+2, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row-1][col-2]!= null) {
+					if (b[row-1][col-2].getColorBoolean()!=color && b[row-1][col-2] instanceof Knight) {
+						if (((Knight)b[row-1][col-2]).safe(row-1, col-2, b)!=0);
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+		} else if (safe(startingRow,startingCol, b)==4) {//pawn, king diagonal
+
+			try {
+				if (b[row+1][col+1]!=null) {
+					if (((b[row+1][col+1] instanceof Pawn && !color) && b[row+1][col+1].getColorBoolean()==!color)) {
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row+1][col-1]!=null) {
+					if (((b[row+1][col-1] instanceof Pawn && !color) && b[row+1][col-1].getColorBoolean()==!color)) {
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+			
+			try {
+				if (b[row+1][col]!=null) {
+					if (((b[row+1][col-1] instanceof Pawn && !color) && b[row+1][col-1].getColorBoolean()==!color)) {
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+			
+
+			try {
+				if (b[row-1][col+1]!=null) {
+					if (((b[row-1][col+1] instanceof Pawn && !color) && b[row-1][col+1].getColorBoolean()==!color)) {
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+
+			try {
+				if (b[row-1][col-1]!=null) {
+					if (((b[row-1][col-1] instanceof Pawn && !color) && b[row-1][col-1].getColorBoolean()==!color)) {
+						return false;
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {}
+			
+		} 
 		return true;
 	}
 }

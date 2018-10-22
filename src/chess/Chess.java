@@ -122,7 +122,7 @@ public class Chess {
 				for (int j = 0; j< 8; j++) {
 					try {
 						if (b.board[i][j] instanceof King) {
-							((King)b.board[i][j]).setCheck(!((King)b.board[i][j]).safe(i, j, b.board));
+							((King)b.board[i][j]).setCheck(0!=((King)b.board[i][j]).safe(i, j, b.board));
 							if (((King)b.board[i][j]).inCheck()) {
 								System.out.print("Check");
 								if(((King)b.board[i][j]).checkMate(j, i, b.board)) {
@@ -211,7 +211,8 @@ public class Chess {
 				}
 			}
 			
-			if (!((King)b.board[kingRow][kingCol]).safe(kingRow, kingCol, b.board)) {
+			if (0!=((King)b.board[kingRow][kingCol]).safe(kingRow, kingCol, b.board)) {
+				
 				b.board[startRow][startCol]=b.board[targetRow][targetCol];
 				b.board[targetRow][targetCol] = temp;
 				move = false;
