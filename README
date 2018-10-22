@@ -14,6 +14,6 @@ Pawn:
 Promotion, Draw, and Resign have been implemented
 
 Still Needs:
-	Checkmate
+	Checkmate - might be done?
 	Check - partially implemented - prints when king is in check, will not let king move into spots in check - still needs to implement not letting other moves put king in check
 	**Stalemate**
