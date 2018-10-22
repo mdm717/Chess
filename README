@@ -15,4 +15,5 @@ Check, Promotion, Draw, and Resign have been implemented
 
 Still Needs:
 	Checkmate - currently only able to get out of check by eliminating threat or moving to space spot. - **must add blocking attack**
-	Stalemate - **extra credit**
+	Stalemate - **extra credit** this occurs when it is a players turn who is not in check and does not have a legal move
++					[Check if all player is in check; if false check if they have legal moves; if false STALEMATE -> else gets to move]
