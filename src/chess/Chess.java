@@ -124,11 +124,13 @@ public class Chess {
 						if (b.board[i][j] instanceof King) {
 							((King)b.board[i][j]).setCheck(0!=((King)b.board[i][j]).safe(i, j, b.board));
 							if (((King)b.board[i][j]).inCheck()) {
-								System.out.print("Check");
+								System.out.print("\nCheck");
 								if(((King)b.board[i][j]).checkMate(j, i, b.board)) {
 
 									System.out.println("mate");
 									System.exit(0);
+								}else {
+									System.out.println("");
 								}
 							}
 						}

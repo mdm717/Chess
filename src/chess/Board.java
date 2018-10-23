@@ -7,10 +7,10 @@ public class Board {
 	
 	public Board() {
 		for(int i = 0; i < 8; i++) {
-//			board[1][i]=new Pawn(true);
-//			board[6][i]=new Pawn(false);
+			board[1][i]=new Pawn(true);
+			board[6][i]=new Pawn(false);
 		}
-/*
+
 		board[7][0]=new Rook(false);
 		board[7][1]=new Knight(false);
 		board[7][2]=new Bishop(false);
@@ -28,17 +28,8 @@ public class Board {
 		board[0][5]=new Bishop(true);
 		board[0][6]=new Knight(true);
 		board[0][7]=new Rook(true);
-*/
-		board[7][4] = new King(false);
-//		board[7][7] = new Pawn(false);
-	
 
-		board[6][4] = new Pawn(true);
-//		board[1][7] = new Rook(true);
-//		board[2][7] = new Rook(true);
-//		board[1][7] = new Rook(true);
-		board[1][0] = new Rook(true);
-		board[5][4] = new King(true);
+
 		
 		
 	}
