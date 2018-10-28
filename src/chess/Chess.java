@@ -7,6 +7,7 @@ import pieces.*;
 public class Chess {
 	private static Board b;
 	private static Scanner sc;
+	
 	public static void main(String[] args) {
 		sc = new Scanner(System.in);
 		boolean turn = true;
@@ -17,6 +18,8 @@ public class Chess {
 		System.out.println(b.toString());
 		
 		while (true) {
+System.out.println(stalemate(b.board, turn));
+			
 			if (turn) {
 				System.out.print("\nWhite's move: ");
 			} else {	
@@ -137,8 +140,12 @@ public class Chess {
 					} catch (NullPointerException e) {}
 				}
 			}
-			
+
+			if (stalemate(b.board, turn)) {
+				System.out.println("Stalemate");
+			}
 		}
+		
 	}
 	
 	public static boolean isTurn(String start, boolean color) {
@@ -220,6 +227,7 @@ public class Chess {
 				move = false;
 			} else {
 				b.board[targetRow][targetCol].resetPassant(b.board);
+				
 			}
 			
 		}
@@ -229,6 +237,53 @@ public class Chess {
 
 	public static void print() {
 		System.out.println(b.toString());
+	}
+	
+	public static boolean stalemate(Piece[][] b, boolean color) {
+		int kRow=0;
+		int kCol=0;
+		for (int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
+				try {
+					if (b[i][j] instanceof King && b[i][j].getColorBoolean()==color) {
+						kRow=i;
+						kCol=j;
+					}
+				} catch (NullPointerException e) {}
+			}
+		
+		}
+		for (int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
+				Piece p = b[i][j];
+				String start = spotString(i,j);
+				if (p!=null) {
+					if (p.getColorBoolean()==color) {
+						if (p.possibleMove(start, b, kRow, kCol)) {
+
+							System.out.println("p" + p.possibleMove(start, b, kRow, kCol));
+							return false;
+						}else {
+							System.out.println("p"+p.possibleMove(start, b, kRow, kCol));
+						}
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	public static String spotString(int i, int j) {
+		if (j==0) return "a"+i;
+		if (j==1) return "b"+i;
+		if (j==2) return "c"+i;
+		if (j==3) return "d"+i;
+		if (j==4) return "e"+i;
+		if (j==5) return "f"+i;
+		if (j==6) return "g"+i;
+		if (j==7) return "h"+i;
+		return "";
 	}
 	
 }

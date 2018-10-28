@@ -91,4 +91,53 @@ public class Pawn extends Piece {
 		return false;
 	}
 
+
+
+	@Override
+	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
+		// TODO Auto-generated method stub
+
+		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
+		int startCol = Board.columnNum(start.charAt(0));
+		
+		if (b[startRow][startCol].getColorBoolean()) {
+			if (b[startRow+1][startCol]==null)  {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startRow+1][startCol+1]!=null) {
+				if (b[startRow+1][startCol+1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
+					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+						return true;
+				}
+			}
+			if (b[startRow+1][startCol-1]!=null) {
+				if (b[startRow+1][startCol-1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
+					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+						return true;
+				}
+			}
+		} else if (!(b[startRow][startCol].getColorBoolean())) {
+			if (b[startRow-1][startCol]==null) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startRow-1][startCol+1]!=null) {
+				if (b[startRow-1][startCol+1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
+					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+						return true;
+				}
+			}
+			if (b[startRow-1][startCol-1]!=null) {
+				if (b[startRow-1][startCol-1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
+					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+						return true;
+				}
+			}
+		}
+		
+		
+		return false;
+	}
+
 }

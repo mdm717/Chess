@@ -6,6 +6,8 @@ public abstract class Piece {
 	
 	public abstract boolean canMove(String start, String target, Piece[][] b);
 	
+	public abstract boolean possibleMove(String start, Piece[][] b, int kRow, int kCol);
+	
 	public Piece (boolean c) {
 		color = c;
 	}

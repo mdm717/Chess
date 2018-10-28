@@ -68,4 +68,60 @@ public class Bishop extends Piece {
 		return false;
 	}
 
+	@Override
+	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
+		// TODO Auto-generated method stub
+		
+		int startingRow = Integer.parseInt(start.charAt(1)+"") - 1;
+		int startingCol = Board.columnNum(start.charAt(0));
+		
+		
+		try{
+			if (b[startingRow+1][startingCol+1] == null) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startingRow+1][startingCol+1].getColorBoolean()!=color) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if (b[startingRow-1][startingCol+1] == null) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startingRow-1][startingCol+1].getColorBoolean()!=color) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if (b[startingRow-1][startingCol-1] == null) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startingRow-1][startingCol-1].getColorBoolean()!=color) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if (b[startingRow+1][startingCol-1] == null) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+			if (b[startingRow+1][startingCol-1].getColorBoolean()!=color) {
+				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		
+		return false;
+	}
+
 }

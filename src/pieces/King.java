@@ -324,6 +324,7 @@ public class King extends Piece {
 	}
 
 	public boolean checkMate(int startingCol, int startingRow, Piece[][] b){
+
 		
 		int row = startingRow;
 		int col = startingCol;
@@ -637,4 +638,89 @@ System.out.println(m);m++;
 		}
 		return true;
 	}
+
+	@Override
+	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
+
+		int startingRow = Integer.parseInt(start.charAt(1)+"") - 1;
+		int startingCol = Board.columnNum(start.charAt(0));
+		
+		try{
+			if(this.safe(startingCol, startingRow+1, b)==0){
+				if (b[startingRow+1][startingCol] == null) {
+					return true;
+				}
+				if (b[startingRow+1][startingCol].getColorBoolean()!=color)
+					return true;
+			}
+		}catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow+1,b)==0){
+					if (b[startingRow+1][startingCol+1] == null)
+						return true;
+				if (b[startingRow+1][startingCol+1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow,b)==0){
+				if (b[startingRow][startingCol+1] == null)
+					return true;
+				if (b[startingRow][startingCol+1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol+1, startingRow-1,b)==0){
+				if (b[startingRow-1][startingCol+1] == null)
+					return true;
+				if (b[startingRow-1][startingCol+1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol, startingRow-1,b)==0){
+				if (b[startingRow-1][startingCol] == null)
+					return true;
+				if (b[startingRow-1][startingCol].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow-1,b)==0){
+				if (b[startingRow-1][startingCol-1] == null)
+					return true;
+				if (b[startingRow-1][startingCol-1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow,b)==0){
+				if (b[startingRow][startingCol-1] == null)
+					return true;
+				if (b[startingRow][startingCol-1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		try{
+			if(this.safe(startingCol-1, startingRow+1,b)==0){
+				if (b[startingRow+1][startingCol-1] == null)
+					return true;
+				if (b[startingRow+1][startingCol-1].getColorBoolean()!=color)
+					return true;
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {}
+		
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 }

@@ -6,7 +6,7 @@ public class Board {
 	public Piece[][] board = new Piece[8][8];
 	
 	public Board() {
-		for(int i = 0; i < 8; i++) {
+/*		for(int i = 0; i < 8; i++) {
 			board[1][i]=new Pawn(true);
 			board[6][i]=new Pawn(false);
 		}
@@ -27,11 +27,17 @@ public class Board {
 		board[0][4]=new King(true);
 		board[0][5]=new Bishop(true);
 		board[0][6]=new Knight(true);
-		board[0][7]=new Rook(true);
+		board[0][7]=new Rook(true);	
 
+*/
+		
 
-		
-		
+		board[7][0]=new King(false);
+
+		//board[5][4]=new Bishop(true);
+		board[6][2]=new Queen(true);
+
+		board[0][4]=new King(true);
 	}
 	
 	public static int columnNum(char c) {
