@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 import pieces.*; 
 
+/**
+ * Chess.java - This is the main class that runs the chess game
+ * @author mdm289 && cms631
+ */
+
 public class Chess {
 	private static Board b;
 	private static Scanner sc;
@@ -148,6 +153,10 @@ System.out.println(stalemate(b.board, turn));
 		
 	}
 	
+	/**
+	 * 
+	 */
+	
 	public static boolean isTurn(String start, boolean color) {
 		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
 		int startCol = Board.columnNum(start.charAt(0));
@@ -159,6 +168,10 @@ System.out.println(stalemate(b.board, turn));
 		return false;
 	}
 	
+	/**
+	 * Promotes a pawn that reaches the opposite side of the board
+	 * @return true if correct input, else false
+	 */
 	public static boolean promote(String target, char c) {
 
 		int targetRow = Integer.parseInt(target.charAt(1)+"") - 1;
@@ -184,6 +197,11 @@ System.out.println(stalemate(b.board, turn));
 		return false;
 	}
 	
+	/**
+	 * Moves a piece on the board
+	 * @parameter start A variable of type String, target A variable of type String
+	 * @return boolean data type
+	 */
 	public static boolean move(String start, String target) {
 		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
 		int startCol = Board.columnNum(start.charAt(0));
@@ -234,10 +252,19 @@ System.out.println(stalemate(b.board, turn));
 		
 		return move;
 	}
-
+	
+	/**
+	 * Prints 
+	 */
 	public static void print() {
 		System.out.println(b.toString());
 	}
+	
+	/**
+	 * Determines whether the game is at a stalemate or not
+	 * @parameter
+	 * @return boolean value true if stalemate, boolean value false if not stalemate
+	 */
 	
 	public static boolean stalemate(Piece[][] b, boolean color) {
 		int kRow=0;

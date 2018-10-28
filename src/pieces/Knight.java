@@ -2,14 +2,28 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Knight.java - This class defines the Knight piece
+ * @author mdm289 && cms631
+ */
+
 public class Knight extends Piece {
 
+	/**
+	 * Defines the Knight symbol to be N
+	 * @parameter c A value of type boolean
+	 */
 	public Knight(boolean c) {
 		super(c);
 		symbol = 'N';
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Determines whether the selected knight piece can move
+	 * @parameter start A value of type String, target A value of type String, b A member of a 2D array
+	 * @return boolean value true if piece can move, boolean value false if piece cannot move
+	 */
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {
 		// TODO Auto-generated method stub
@@ -34,7 +48,10 @@ public class Knight extends Piece {
 		return false;
 	}
 	
-
+	/**
+	 * 
+	 */
+	
 	public int safe(int row, int col, Piece[][] b) {
 		
 		/*
@@ -284,6 +301,11 @@ public class Knight extends Piece {
 		return 0;
 	}
 
+	/**
+	 * Determines if the requested move from the player is legal
+	 * @parameter start A value of type string, b A member of a 2D array, kRow A value of type int, kCol A value of type int
+	 * @return boolean value true if it is a possible move, boolean value false if it is not
+	 */
 	@Override
 	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
 		// TODO Auto-generated method stub

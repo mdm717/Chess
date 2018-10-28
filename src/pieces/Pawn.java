@@ -2,19 +2,30 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * Pawn.java - This class defines the Pawn piece
+ * @author mdm289 && cms631
+ *
+ */
 public class Pawn extends Piece {
 
 	final int WHITE_START = 1;
 	final int BLACK_START = 6;
 	boolean passPawn = false;
 	
+	/**
+	 * Define the Pawn symbol to be p
+	 * @parameter c A value of type boolean
+	 */
 	public Pawn(boolean c) {
 		super(c);
 		symbol = 'p';
 	}
 	
 	
-	
+	/**
+	 * 
+	 */
 	@Override
 	public void resetPassant(Piece[][] b ) {
 	}
@@ -32,6 +43,11 @@ public class Pawn extends Piece {
 		}
 	}
 	
+	/**
+	 * Determines whether the selected pawn piece can move
+	 * @parameter start A value of type String, target A value of type String, b A member of a 2D array
+	 * @return boolean value true if piece can move, boolean value false if piece cannot move
+	 */
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {
 		// TODO Auto-generated method stub
@@ -92,7 +108,12 @@ public class Pawn extends Piece {
 	}
 
 
-
+	/**
+	 * Determines if the requested move from the player is legal
+	 * @parameter start A value of type string, b A member of a 2D array, kRow A value of type int, kCol A value of type int
+	 * @return boolean value true if it is a possible move, boolean value false if it is not
+	 */
+	
 	@Override
 	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
 		// TODO Auto-generated method stub

@@ -2,9 +2,19 @@ package chess;
 
 import pieces.*;
 
+/**
+ * Board.java - initializes the board variables
+ * @author mdm289 && cms631
+ * 
+ */
+
 public class Board {
 	public Piece[][] board = new Piece[8][8];
 	
+	
+	/**
+	 * Creates the initial board set up
+	 */
 	public Board() {
 /*		for(int i = 0; i < 8; i++) {
 			board[1][i]=new Pawn(true);
@@ -40,6 +50,11 @@ public class Board {
 		board[0][4]=new King(true);
 	}
 	
+	/**
+	 * Converts the column character to a number
+	 * @parameter c A variable of type Char
+	 * @return num value based on switch case
+	 */
 	public static int columnNum(char c) {
 		switch (c) {
 		case 'a':
@@ -62,6 +77,9 @@ public class Board {
 		return -1;
 	}
 	
+	/**
+	 * Converts 
+	 */
 	public String toString() {
 		String str = "";
 		for (int i = 7; i >= 0; i--) {

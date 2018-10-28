@@ -2,11 +2,19 @@ package pieces;
 
 import chess.Board;
 
+/**
+ * King.java - This class defines the King piece
+ * @author mdm289 && cms631
+ */
+
 public class King extends Piece {
 	private int moves;
 	private boolean check;
 	
-
+	/**
+	 * Defines the King symbol to be K and establishes check to be false
+	 * @parameter c A value of type boolean
+	 */
 	public King(boolean c) {
 		super(c);
 		symbol = 'K';
@@ -68,6 +76,11 @@ public class King extends Piece {
 	}
 	
 	
+	/**
+	 * Checks whether the king is safe
+	 * @parameter row A value of type int, col A value of type int, b A member of a 2D array
+	 * @return value of direction/piece the king is in danger from
+	 */
 	public int safe(int row, int col, Piece[][] b) {
 		
 		/*
@@ -639,6 +652,11 @@ System.out.println(m);m++;
 		return true;
 	}
 
+	/**
+	 * Determines if the requested move from the player is legal
+	 * @parameter start A value of type string, b A member of a 2D array, kRow A value of type int, kCol A value of type int
+	 * @return boolean value true if it is a possible move, boolean value false if it is not
+	 */
 	@Override
 	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
 
