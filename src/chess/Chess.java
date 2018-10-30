@@ -140,6 +140,12 @@ public class Chess {
 								if(((King)b.board[i][j]).checkMate(j, i, b.board)) {
 
 									System.out.println("mate");
+									
+									if (turn) {
+										System.out.println("Black wins");
+									} else {
+										System.out.println("White wins");
+									}
 									System.exit(0);
 								}else {
 									System.out.println("");

@@ -17,6 +17,8 @@ public class Board {
 	 * sets pieces on 'board', a 2x2 matrix of pieces
 	 */
 	public Board() {
+		
+		
 		for(int i = 0; i < 8; i++) {
 			board[1][i]=new Pawn(true);
 			board[6][i]=new Pawn(false);
@@ -39,6 +41,15 @@ public class Board {
 		board[0][5]=new Bishop(true);
 		board[0][6]=new Knight(true);
 		board[0][7]=new Rook(true);	
+		
+		/*
+		
+		board[7][7] = new King(false);
+		
+		board[5][5] = new Bishop(true);
+		board[5][6] = new King(true);
+		board[3][6] = new Knight(true);
+		*/
 	}
 	
 	/**

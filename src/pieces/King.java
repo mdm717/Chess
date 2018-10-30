@@ -366,7 +366,6 @@ public class King extends Piece {
 		
 		int row = startingRow;
 		int col = startingCol;
-		int m = 0;
 		
 		
 		if (safe(startingRow,startingCol, b)==0) {
@@ -640,7 +639,6 @@ public class King extends Piece {
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {}
 
-System.out.println(m);m++;
 			try {
 				if (b[row-1][col]!=null) {
 					if (b[row-1][col] instanceof King 
@@ -649,8 +647,6 @@ System.out.println(m);m++;
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {}
-
-System.out.println(m);m++;
 
 			try {
 				if (b[row][col+1]!=null) {
@@ -661,7 +657,6 @@ System.out.println(m);m++;
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {}
 
-System.out.println(m);m++;
 			try {
 				if (b[row][col-1]!=null) {
 					if (b[row][col-1] instanceof King 
@@ -670,9 +665,6 @@ System.out.println(m);m++;
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {}
-		}
-		else {
-			System.out.println("Miss");
 		}
 		return true;
 	}
