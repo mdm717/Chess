@@ -14,8 +14,8 @@ public class Pawn extends Piece {
 	boolean passPawn = false;
 	
 	/**
-	 * Define the Pawn symbol to be p
-	 * @parameter c A value of type boolean
+	 * Class constructor, sets piece color and symbol
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public Pawn(boolean c) {
 		super(c);
@@ -24,12 +24,20 @@ public class Pawn extends Piece {
 	
 	
 	/**
-	 * 
+	 * This method is called in Chess.move(str,str); however, for pawns, we chose to call this method elsewhere.
+	 * 				In order to not call the function where we did not want to, we left this blank and overloaded it
+	 * @param b	the 2x2 matrix of pieces
 	 */
 	@Override
 	public void resetPassant(Piece[][] b ) {
 	}
 	
+	/**
+	 * overloaded version of the overridden resetPassant(Piece[][])
+	 * 				This was done so this method could be called differently from how the rest of the pieces call the method
+	 * @param b	the 2x2 matrix of pieces
+	 * @param k	this variable is only to change the signature of the method from the overridden version
+	 */
 	public void resetPassant(Piece[][] b, int k) {
 
 		for(int i = 0; i<8; i++) {

@@ -9,9 +9,10 @@ import chess.Board;
 
 public class Knight extends Piece {
 
+
 	/**
-	 * Defines the Knight symbol to be N
-	 * @parameter c A value of type boolean
+	 * Class constructor, sets piece color and symbol
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public Knight(boolean c) {
 		super(c);
@@ -48,10 +49,19 @@ public class Knight extends Piece {
 		return false;
 	}
 	
+
 	/**
-	 * 
-	 */
-	
+	 * Checks whether a spot is in a line of attack from the opposing team
+	 * @param row	the row to check the safety of
+	 * @param col	the column to check the safety of
+	 * @param b		the 2x2 matrix of pieces
+	 * @return		0 if safe
+	 * 					1 - in attack by a rook or queen vertically/horizontally
+	 * 					2 - in attack by bishop or queen diagonally
+	 * 					3 - in attack by knight
+	 * 					4 - in attack by pawn of king diagonally
+	 * 					5 - in attack by king
+	 */	
 	public int safe(int row, int col, Piece[][] b) {
 		
 		/*

@@ -12,8 +12,8 @@ public class King extends Piece {
 	private boolean check;
 	
 	/**
-	 * Defines the King symbol to be K and establishes check to be false
-	 * @parameter c A value of type boolean
+	 * Class constructor, sets piece color and symbol, as well as sets other private variables
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public King(boolean c) {
 		super(c);
@@ -24,7 +24,9 @@ public class King extends Piece {
 	}
 
 	
-	
+	/**
+	 * 
+	 */
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {	//needs to add castling
 		// TODO Auto-generated method stub
@@ -76,10 +78,18 @@ public class King extends Piece {
 	}
 	
 	
+	
 	/**
-	 * Checks whether the king is safe
-	 * @parameter row A value of type int, col A value of type int, b A member of a 2D array
-	 * @return value of direction/piece the king is in danger from
+	 * Checks whether a spot is in a line of attack from the opposing team
+	 * @param row	the row to check the safety of
+	 * @param col	the column to check the safety of
+	 * @param b		the 2x2 matrix of pieces
+	 * @return		0 if safe
+	 * 					1 - in attack by a rook or queen vertically/horizontally
+	 * 					2 - in attack by bishop or queen diagonally
+	 * 					3 - in attack by knight
+	 * 					4 - in attack by pawn of king diagonally
+	 * 					5 - in attack by king
 	 */
 	public int safe(int row, int col, Piece[][] b) {
 		
@@ -327,15 +337,30 @@ public class King extends Piece {
 		
 		return 0;
 	}
-
+	
+	/**
+	 * Allows other for other classes to know if a King object is in check
+	 * @return	true if in check, false if not
+	 */
 	public boolean inCheck() {
 		return check;
 	}
 
+	/**
+	 * Sets the value
+	 * @param check	boolean used to set a king object's check boolean
+	 */
 	public void setCheck(boolean check) {
 		this.check = check;
 	}
 
+	/**
+	 * This method checks if the king is in checkmate
+	 * @param startingCol	the column of the king
+	 * @param startingRow	the row of the king
+	 * @param b				the 2x2 matrix of pieces
+	 * @return	true if the king is in checkmate
+	 */
 	public boolean checkMate(int startingCol, int startingRow, Piece[][] b){
 
 		

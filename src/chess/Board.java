@@ -13,7 +13,8 @@ public class Board {
 	
 	
 	/**
-	 * Creates the initial board set up
+	 * Class constructor
+	 * sets pieces on 'board', a 2x2 matrix of pieces
 	 */
 	public Board() {
 /*		for(int i = 0; i < 8; i++) {
@@ -42,18 +43,16 @@ public class Board {
 */
 		
 
-		board[7][0]=new King(false);
-
-		//board[5][4]=new Bishop(true);
-		board[6][2]=new Queen(true);
-
-		board[0][4]=new King(true);
+		board[7][4] = new King(false);
+		
+		board[6][4] = new Pawn(true);
+		board[4][4] = new King(true);
 	}
 	
 	/**
 	 * Converts the column character to a number
-	 * @parameter c A variable of type Char
-	 * @return num value based on switch case
+	 * @param	c	the character corresponding to a given column on the board
+	 * @return		the index of the column, corresponding to column c
 	 */
 	public static int columnNum(char c) {
 		switch (c) {
@@ -78,7 +77,9 @@ public class Board {
 	}
 	
 	/**
-	 * Converts 
+	 * Converts the board into a string for the system to display
+	 * 
+	 * @return	representation of the board according to specified guidelines
 	 */
 	public String toString() {
 		String str = "";

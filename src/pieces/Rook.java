@@ -9,9 +9,10 @@ import chess.Board;
 public class Rook extends Piece {
 	int moves;
 	
+
 	/**
-	 * Defines the Rook symbol to be R
-	 * @parameters c A value of type boolean
+	 * Class constructor, sets piece color and symbol
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public Rook(boolean c) {
 		super(c);

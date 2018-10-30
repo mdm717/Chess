@@ -8,8 +8,8 @@ import chess.Board;
 public class Queen extends Piece {
 
 	/**
-	 * Defines the Queen symbol to be Q
-	 * @parameter c A value of type boolean
+	 * Class constructor, sets piece color and symbol
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public Queen(boolean c) {
 		super(c);
@@ -18,6 +18,7 @@ public class Queen extends Piece {
 	}
 	
 	/**
+	 * 
 	 * Determines whether the selected queen piece can move
 	 * @parameter start A value of type String, target A value of type String, b A member of a 2D array
 	 * @return boolean value true if piece can move, boolean value false if piece cannot move

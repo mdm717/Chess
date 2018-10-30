@@ -13,6 +13,11 @@ public class Chess {
 	private static Board b;
 	private static Scanner sc;
 	
+	
+	/**
+	 * This method hold the loop which continues the game until it ends
+	 * @param	args	arguments for the program to run
+	 */
 	public static void main(String[] args) {
 		sc = new Scanner(System.in);
 		boolean turn = true;
@@ -23,7 +28,6 @@ public class Chess {
 		System.out.println(b.toString());
 		
 		while (true) {
-System.out.println(stalemate(b.board, turn));
 			
 			if (turn) {
 				System.out.print("\nWhite's move: ");
@@ -56,7 +60,7 @@ System.out.println(stalemate(b.board, turn));
 						}
 							
 						turn=!turn;
-						print();
+						System.out.println(b.toString());
 					} 
 					//if it is a legal move, and the requested position on the board is an instance of a King
 					//Checkmate, and game ends
@@ -88,7 +92,7 @@ System.out.println(stalemate(b.board, turn));
 										||(targetRow== 0 && !(b.board[targetRow][targetCol].getColorBoolean()) && b.board[targetRow][targetCol]  instanceof Pawn)) {
 									promote("" + input.charAt(3)+input.charAt(4), input.charAt(6));
 									turn=!turn;
-									print();
+									System.out.println(b.toString());
 								}
 								
 							} else {
@@ -105,7 +109,7 @@ System.out.println(stalemate(b.board, turn));
 					if (move(""+input.charAt(0)+input.charAt(1),"" + input.charAt(3)+input.charAt(4))) {
 						turn=!turn;
 						drawAsked= true;
-						print();
+						System.out.println(b.toString());
 					} else {
 						System.out.println("Illegal move, try again");
 					}
@@ -146,17 +150,20 @@ System.out.println(stalemate(b.board, turn));
 				}
 			}
 
-			if (stalemate(b.board, turn)) {
+/*			if (stalemate(b.board, turn)) {
 				System.out.println("Stalemate");
 			}
+*/
 		}
 		
 	}
 	
 	/**
-	 * 
+	 * This method determines if it is a given piece's turn to move
+	 * @param start	position of a piece on the board
+	 * @param color	boolean representing the color of the current turn, true-->white, false-->black
+	 * @return	boolean value of whether or not it is the piece at position "start"'s turn 
 	 */
-	
 	public static boolean isTurn(String start, boolean color) {
 		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
 		int startCol = Board.columnNum(start.charAt(0));
@@ -169,8 +176,10 @@ System.out.println(stalemate(b.board, turn));
 	}
 	
 	/**
-	 * Promotes a pawn that reaches the opposite side of the board
-	 * @return true if correct input, else false
+	 * changes a pawn to either a queen, rook, knight, or bishop
+	 * @param target	the position of the pawn to be promoted
+	 * @param c			a character representing the type of piece the pawn is to be promoted to
+	 * @return	true if the pawn was promoted, false if c is passed an incorrect character
 	 */
 	public static boolean promote(String target, char c) {
 
@@ -198,9 +207,10 @@ System.out.println(stalemate(b.board, turn));
 	}
 	
 	/**
-	 * Moves a piece on the board
-	 * @parameter start A variable of type String, target A variable of type String
-	 * @return boolean data type
+	 * moves a piece on the board as long as it does not put its own king in check
+	 * @param start		the position of the piece that is attempting to move
+	 * @param target	the position of the target spot
+	 * @return	true if the piece is able to properly move, false if the move fails
 	 */
 	public static boolean move(String start, String target) {
 		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
@@ -254,16 +264,10 @@ System.out.println(stalemate(b.board, turn));
 	}
 	
 	/**
-	 * Prints 
-	 */
-	public static void print() {
-		System.out.println(b.toString());
-	}
-	
-	/**
-	 * Determines whether the game is at a stalemate or not
-	 * @parameter
-	 * @return boolean value true if stalemate, boolean value false if not stalemate
+	 * determines whether or not a player is in stalemate
+	 * @param b		a reference to the 2x2 matrix containing the pieces
+	 * @param color	a boolean corresponding to the color of the player being tested
+	 * @return true if the player, designated by color has no valid moves, else false
 	 */
 	public static boolean stalemate(Piece[][] b, boolean color) {
 		int kRow=0;

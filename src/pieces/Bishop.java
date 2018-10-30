@@ -9,9 +9,10 @@ import chess.Board;
 
 public class Bishop extends Piece {
 
+
 	/**
-	 * Defines the bishop symbol to be B
-	 * @parameters c A value of type boolean
+	 * Class constructor, sets piece color and symbol
+	 * @param c	used to set the color of the piece, true-->white, false-->black
 	 */
 	public Bishop(boolean c) {
 		super(c);
@@ -88,6 +89,7 @@ public class Bishop extends Piece {
 	 * @parameter start A value of type string, b A member of a 2D array, kRow A value of type int, kCol A value of type int
 	 * @return boolean value true if it is a possible move, boolean value false if it is not
 	 */
+	
 	@Override
 	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
 		// TODO Auto-generated method stub
