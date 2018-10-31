@@ -2,7 +2,8 @@ package pieces;
 
 /**
  * Piece.java - This class defines the symbol and color of the all pieces
- * @author mdm289 && 
+ * @author Craig Sirota cms631
+ * @author Matthew Marrazzo mdm289
  *
  */
 
@@ -11,7 +12,7 @@ public abstract class Piece {
 	protected char symbol;
 	
 	/**
-	 * This method checks if a player's request for a move is valid.
+	 * This abstract method, when implemented, will check if a player's request for a move is valid.
 	 * @param start		the starting spot of the piece requesting to move
 	 * @param target	the target spot of the piece requesting to move
 	 * @param b			the 2x2 matrix of pieces
@@ -20,35 +21,16 @@ public abstract class Piece {
 	public abstract boolean canMove(String start, String target, Piece[][] b);
 	
 	/**
-	 * Used for stalemate, this method checks if a player has any possible moves for a specific piece.
-	 * @param start	the position of the piece
-	 * @param b		the 2x2 matrix of pieces
-	 * @param kRow	the row of the piece's king
-	 * @param kCol	the column of the piece's king
-	 * @return	true if there are possible moves, false if there are none
-	 * 				if all pieces return false, then stalemate
-	 */
-	public abstract boolean possibleMove(String start, Piece[][] b, int kRow, int kCol);
-	
-
-	/**
 	 * Class constructor, sets piece color and symbol
-	 * @param c	used to set the color of the piece, true-->white, false-->black
+	 * @param c	used to set the color of the piece, true=white, false=black
 	 */
 	public Piece (boolean c) {
 		color = c;
 	}
 	
 	/**
-	 * Sets the color of the piece to be true or false depending on the color
-	 * @see Line 10
-	 * @parameter str A value of type String
-	 */
-	
-	
-	/**
 	 * Gets the boolean value of the color
-	 * @return boolean corresponding to the color of the piece, true-->white, false-->black
+	 * @return boolean corresponding to the color of the piece, true=white, false=black
 	 */
 	public boolean getColorBoolean() {
 		return color;

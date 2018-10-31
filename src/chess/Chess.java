@@ -6,7 +6,8 @@ import pieces.*;
 
 /**
  * Chess.java - This is the main class that runs the chess game
- * @author mdm289 && cms631
+ * @author Craig Sirota cms631
+ * @author Matthew Marrazzo mdm289
  */
 
 public class Chess {
@@ -24,6 +25,10 @@ public class Chess {
 		boolean drawAsked = false;
 		
 		b = new Board();
+		if(staleMate(turn))
+			{
+			System.out.println("nice");
+			};
 
 		System.out.println(b.toString());
 		
@@ -128,7 +133,6 @@ public class Chess {
 				}
 				return;
 			}
-
 			
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j< 8; j++) {
@@ -137,15 +141,10 @@ public class Chess {
 							((King)b.board[i][j]).setCheck(0!=((King)b.board[i][j]).safe(i, j, b.board));
 							if (((King)b.board[i][j]).inCheck()) {
 								System.out.print("\nCheck");
-								if(((King)b.board[i][j]).checkMate(j, i, b.board)) {
+								if(((King)b.board[i][j]).checkMate2(j, i, b.board)) {
 
 									System.out.println("mate");
-									
-									if (turn) {
-										System.out.println("Black wins");
-									} else {
-										System.out.println("White wins");
-									}
+									System.out.println(!turn ? "White wins":"Black wins");
 									System.exit(0);
 								}else {
 									System.out.println("");
@@ -156,10 +155,9 @@ public class Chess {
 				}
 			}
 
-/*			if (stalemate(b.board, turn)) {
-				System.out.println("Stalemate");
-			}
-*/
+			staleMate(turn);
+			
+
 		}
 		
 	}
@@ -167,7 +165,7 @@ public class Chess {
 	/**
 	 * This method determines if it is a given piece's turn to move
 	 * @param start	position of a piece on the board
-	 * @param color	boolean representing the color of the current turn, true-->white, false-->black
+	 * @param color	boolean representing the color of the current turn, true=white, false=black
 	 * @return	boolean value of whether or not it is the piece at position "start"'s turn 
 	 */
 	public static boolean isTurn(String start, boolean color) {
@@ -271,57 +269,46 @@ public class Chess {
 	
 	/**
 	 * determines whether or not a player is in stalemate
-	 * @param b		a reference to the 2x2 matrix containing the pieces
-	 * @param color	a boolean corresponding to the color of the player being tested
+	 * @param turn	a boolean corresponding to the color of the player being tested
 	 * @return true if the player, designated by color has no valid moves, else false
 	 */
-	public static boolean stalemate(Piece[][] b, boolean color) {
-		int kRow=0;
-		int kCol=0;
-		int f = 0;
-		int[] rows = new int[16];
-		int[] cols = new int[16];
-		for (int i = 0; i < 16; i++) {
-			rows[i] = cols[i] = -1;
-		}
-		
-		for (int i = 0; i<8; i++) {
-			for (int j = 0; j<8; j++) {
-				try {
-					if (b[i][j].getColorBoolean()==color) {
-						rows[f] = i;
-						cols[f] = j;
-						f++;
-						if (b[i][j] instanceof King) {
-							kRow=i;
-							kCol=j;
+	public static boolean staleMate(boolean turn){
+		//This will check if player can move any pieces
+		//If there is a piece that CAN move, return false
+		for(int k=0; k<8; k++){
+			for(int h=0; h<8; h++){
+				try{
+					if(turn == b.board[k][h].getColorBoolean())
+					{
+						Piece temp = b.board[k][h];
+						//IF THE PIECE IS A KING TEST IF IT IS IN CHECK
+						for(int i=0; i<8; i++)
+						{
+							for(int j=0; j<8; j++)
+							{
+								try{
+									if(temp.canMove(spotString(k, h), spotString(i, j), b.board)){
+										return false;
+									}
+								} catch(ClassCastException e){}
+							}
 						}
 					}
-				} catch (NullPointerException e) {}
+				} catch(NullPointerException e){}
 			}
-		
-		}
-		if(((King)b[kRow][kCol]).inCheck())
-		{
-			return false;
-		}
-		
-		for (f=0; f < 16 && rows[f] != -1; f++) {
-			Piece p = b[rows[f]][cols[f]];
-
-			System.out.println(rows[f]+":"+cols[f]);
-			if (p.possibleMove(spotString(rows[f], cols[f]), b, kRow, kCol)) {
-				System.out.println(rows[f]+":"+cols[f] + " can move");
-				return false;
-			}
-			
-		}
-		
+		}		
 		System.out.println("Stalemate");
 		System.exit(0);
 		return true;
+		
 	}
 	
+	/**
+	 * converts row and column indices into a string representation (i,j):(0,0) becomes "a1"
+	 * @param i		row index
+	 * @param j		column index
+	 * @return		a string representing the position of a spot
+	 */
 	public static String spotString(int i, int j) {
 		i++;
 		if (j==0) return "a"+i;

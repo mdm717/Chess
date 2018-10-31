@@ -4,7 +4,8 @@ import chess.Board;
 
 /**
  * Pawn.java - This class defines the Pawn piece
- * @author mdm289 && cms631
+ * @author Craig Sirota cms631
+ * @author Matthew Marrazzo mdm289
  *
  */
 public class Pawn extends Piece {
@@ -15,7 +16,7 @@ public class Pawn extends Piece {
 	
 	/**
 	 * Class constructor, sets piece color and symbol
-	 * @param c	used to set the color of the piece, true-->white, false-->black
+	 * @param c	used to set the color of the piece, true=white, false=black
 	 */
 	public Pawn(boolean c) {
 		super(c);
@@ -51,10 +52,13 @@ public class Pawn extends Piece {
 		}
 	}
 	
+
 	/**
-	 * Determines whether the selected pawn piece can move
-	 * @parameter start A value of type String, target A value of type String, b A member of a 2D array
-	 * @return boolean value true if piece can move, boolean value false if piece cannot move
+	 * This method checks if a player's request for a move is valid.
+	 * @param start		the starting spot of the piece requesting to move
+	 * @param target	the target spot of the piece requesting to move
+	 * @param b			the 2x2 matrix of pieces
+	 * @return	true if the piece can be moved to the target, false if it can't
 	 */
 	@Override
 	public boolean canMove(String start, String target, Piece[][] b) {
@@ -114,59 +118,4 @@ public class Pawn extends Piece {
 		
 		return false;
 	}
-
-
-	/**
-	 * Determines if the requested move from the player is legal
-	 * @parameter start A value of type string, b A member of a 2D array, kRow A value of type int, kCol A value of type int
-	 * @return boolean value true if it is a possible move, boolean value false if it is not
-	 */
-	
-	@Override
-	public boolean possibleMove(String start, Piece[][] b, int kRow, int kCol) {
-		// TODO Auto-generated method stub
-
-		int startRow = Integer.parseInt(start.charAt(1)+"") - 1;
-		int startCol = Board.columnNum(start.charAt(0));
-		
-		if (b[startRow][startCol].getColorBoolean()) {
-			if (b[startRow+1][startCol]==null)  {
-				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-					return true;
-			}
-			if (b[startRow+1][startCol+1]!=null) {
-				if (b[startRow+1][startCol+1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
-					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-						return true;
-				}
-			}
-			if (b[startRow+1][startCol-1]!=null) {
-				if (b[startRow+1][startCol-1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
-					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-						return true;
-				}
-			}
-		} else if (!(b[startRow][startCol].getColorBoolean())) {
-			if (b[startRow-1][startCol]==null) {
-				if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-					return true;
-			}
-			if (b[startRow-1][startCol+1]!=null) {
-				if (b[startRow-1][startCol+1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
-					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-						return true;
-				}
-			}
-			if (b[startRow-1][startCol-1]!=null) {
-				if (b[startRow-1][startCol-1].getColorBoolean()!=b[startRow][startCol].getColorBoolean())  {
-					if (((King)b[kRow][kCol]).safe(kRow, kCol, b)==0)
-						return true;
-				}
-			}
-		}
-		
-		
-		return false;
-	}
-
 }

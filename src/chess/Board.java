@@ -4,7 +4,8 @@ import pieces.*;
 
 /**
  * Board.java - initializes the board variables
- * @author mdm289 && cms631
+ * @author Craig Sirota cms631
+ * @author Matthew Marrazzo mdm289
  * 
  */
 
@@ -14,10 +15,9 @@ public class Board {
 	
 	/**
 	 * Class constructor
-	 * sets pieces on 'board', a 2x2 matrix of pieces
+	 * initializes pieces on a 2x2 matrix of pieces to set the board
 	 */
 	public Board() {
-		
 		
 		for(int i = 0; i < 8; i++) {
 			board[1][i]=new Pawn(true);
@@ -42,14 +42,7 @@ public class Board {
 		board[0][6]=new Knight(true);
 		board[0][7]=new Rook(true);	
 		
-		/*
 		
-		board[7][7] = new King(false);
-		
-		board[5][5] = new Bishop(true);
-		board[5][6] = new King(true);
-		board[3][6] = new Knight(true);
-		*/
 	}
 	
 	/**
