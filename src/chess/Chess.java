@@ -25,10 +25,6 @@ public class Chess {
 		boolean drawAsked = false;
 		
 		b = new Board();
-		if(staleMate(turn))
-			{
-			System.out.println("nice");
-			};
 
 		System.out.println(b.toString());
 		
@@ -67,15 +63,6 @@ public class Chess {
 						turn=!turn;
 						System.out.println(b.toString());
 					} 
-					//if it is a legal move, and the requested position on the board is an instance of a King
-					//Checkmate, and game ends
-/*					if(b.board[targetRow][targetCol] instanceof King)
-					{
-						System.out.println("Checkmate.");
-						return 0;
-					}
-*/					//
-					//
 					else {
 						System.out.println("Illegal move, try again");
 					}
@@ -143,7 +130,7 @@ public class Chess {
 								System.out.print("\nCheck");
 								if(((King)b.board[i][j]).checkMate2(j, i, b.board)) {
 
-									System.out.println("mate");
+									System.out.println("mate\n");
 									System.out.println(!turn ? "White wins":"Black wins");
 									System.exit(0);
 								}else {
