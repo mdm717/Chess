@@ -277,6 +277,11 @@ public class Chess {
 		return move;
 	}
 	
+	/**
+	 * Checks if a player is in check or checkmate and ends the game if appropriate
+	 * @param turn	a boolean corresponding to the color of the player being tested
+	 * @return		false if the player has at least one move if they can be taken out of check, otherwise checkmate, end game
+	 */
 	public static boolean checkMate(boolean turn){
 		//This will check if player can move any pieces
 		//If there is a piece that CAN move, return false
