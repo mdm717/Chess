@@ -29,6 +29,23 @@ public class Chess {
 		System.out.println(b.toString());
 		
 		while (true) {
+			int pieces = 0;
+			int kings = 0;
+			for (int i = 0; i <8;i++) {
+				for (int j = 0; j<8; j++) {
+					if (b.board[i][j]!=null) {
+						pieces++;
+						if (b.board[i][j] instanceof King) {
+							kings++;
+						}
+					}
+				}
+			}
+			
+			if (pieces == 2 && kings == 2) {
+				System.out.println("Draw");
+				System.exit(0);
+			}
 			
 			if (turn) {
 				System.out.print("\nWhite's move: ");
