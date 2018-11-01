@@ -120,7 +120,7 @@ public class Chess {
 				}
 				return;
 			}
-			
+			/*
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j< 8; j++) {
 					try {
@@ -141,7 +141,30 @@ public class Chess {
 					} catch (NullPointerException e) {}
 				}
 			}
-
+*/
+			int kingRow=-1;
+			int kingCol=-1;
+			
+			for(int i = 0; i < 8; i++) {
+				boolean breakIt=false;
+				for (int j = 0; j <8; j++) {
+					if (b.board[i][j]!=null) {
+						if (b.board[i][j] instanceof King && b.board[i][j].getColorBoolean()==turn) {
+							((King)b.board[i][j]).setCheck(0!=((King)b.board[i][j]).safe(i, j, b.board));
+							kingRow=i;
+							kingCol=j;
+							breakIt = true;
+							break;
+						}
+					}
+				}
+				if (breakIt) {
+					break;
+				}
+			}
+			
+			if (((King)b.board[kingRow][kingCol]).inCheck())
+				checkMate(turn);
 			staleMate(turn);
 			
 
@@ -253,6 +276,68 @@ public class Chess {
 		
 		return move;
 	}
+	
+	public static boolean checkMate(boolean turn){
+		//This will check if player can move any pieces
+		//If there is a piece that CAN move, return false
+		
+		int kingRow=-1;
+		int kingCol=-1;
+		
+		for(int i = 0; i < 8; i++) {
+			boolean breakIt=false;
+			for (int j = 0; j <8; j++) {
+				if (b.board[i][j]!=null) {
+					if (b.board[i][j] instanceof King && b.board[i][j].getColorBoolean()==turn) {
+						kingRow=i;
+						kingCol=j;
+						breakIt = true;
+						break;
+					}
+				}
+			}
+			if (breakIt) {
+				break;
+			}
+		}
+		
+		for(int k=0; k<8; k++){
+			for(int h=0; h<8; h++){
+				try{
+					if(turn != b.board[k][h].getColorBoolean())
+					{
+						Piece temp = b.board[k][h];
+						//IF THE PIECE IS A KING TEST IF IT IS IN CHECK
+						for(int i=0; i<8; i++)
+						{
+							for(int j=0; j<8; j++)
+							{
+								try{
+									if(temp.canMove(spotString(k, h), spotString(i, j), b.board)){
+										Piece p = b.board[i][j];
+										b.board[i][j] = temp;
+										temp = null;
+										
+										((King)b.board[kingRow][kingCol]).setCheck(0==((King)b.board[kingRow][kingCol]).safe(i, j, b.board));
+										if (((King)b.board[kingRow][kingCol]).safe(kingRow,kingCol,b.board)==0) {
+											System.out.println("Check");
+											temp = b.board[i][j];
+											b.board[i][j] = p;
+											return false;
+										}
+									}
+								} catch(ClassCastException e){}
+							}
+						}
+					}
+				} catch(NullPointerException e){}
+			}
+		}	
+		System.out.println("Checkmate\n\n" + (!turn ? "White wins":"Black wins"));
+		System.exit(0);
+		return true;
+	}
+	
 	
 	/**
 	 * determines whether or not a player is in stalemate
